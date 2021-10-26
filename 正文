@@ -1,0 +1,230 @@
+from pgmpy.factors.discrete import TabularCPD
+from pgmpy.models import BayesianModel
+FX_model = BayesianModel([('A','B'),('B','C'),
+                              ('C','D'),('H','C'),
+                              ('D','E'),('O','E'),('I','D'),
+                              ('V','G'),('G','K'),('G','H'),('J','I'),
+                              ('L','M'),('M','N'),('P','N'),
+                              ('N','O'),('W','O'),
+                              ('Q','R'),('R','S'),('S','W')])
+
+
+# A的风险概率分布
+A_cpd = TabularCPD(
+            variable='A',
+            variable_card=2,
+            values=[[0.796], [0.204]]
+)
+# B的风险概率分布
+B_cpd = TabularCPD(
+            variable='B',
+            variable_card=2,
+            values=[[0.788, 0.161],
+            [0.212, 0.839]],
+            evidence=['A'],
+            evidence_card=[2]
+)
+# C的风险概率分布
+C_cpd = TabularCPD(
+    variable='C',
+    variable_card=2,
+    values=[[0.808, 0.135,0.135, 0.036],
+
+    [0.192,0.865,0.865,0.964]],
+    evidence=['B', 'H'],
+    evidence_card=[2, 2]
+)
+# D的风险概率分布
+D_cpd = TabularCPD(
+    variable='D',
+    variable_card=2,
+    values=[[0.788, 0.127,0.121,0.030],
+
+    [0.212,0.873,0.879,0.970]],
+    evidence=['C','I'],
+    evidence_card=[2,2]
+)
+# E的风险概率分布
+E_cpd = TabularCPD(
+    variable='E',
+    variable_card=2,
+    values=[[0.784, 0.135,0.130, 0.036],
+
+    [0.216,0.865,0.870,0.964]],
+    evidence=['D', 'O'],
+    evidence_card=[2, 2]
+)
+# V的风险概率分布
+V_cpd = TabularCPD(
+            variable='V',
+            variable_card=2,
+            values=[[0.784], [0.216]]
+)
+# G的风险概率分布
+G_cpd = TabularCPD(
+            variable='G',
+            variable_card=2,
+            values=[[0.784, 0.169],
+            [0.216, 0.831]],
+            evidence=['V'],
+            evidence_card=[2]
+)
+# H的风险概率分布
+H_cpd = TabularCPD(
+            variable='H',
+            variable_card=2,
+            values=[[0.788, 0.170],
+            [0.212, 0.830]],
+            evidence=['G'],
+            evidence_card=[2]
+)
+# H的风险概率分布
+K_cpd = TabularCPD(
+            variable='K',
+            variable_card=2,
+            values=[[0.782, 0.169],
+            [0.218, 0.831]],
+            evidence=['G'],
+            evidence_card=[2]
+)
+# J的风险概率分布
+J_cpd = TabularCPD(
+            variable='J',
+            variable_card=2,
+            values=[[0.816], [0.184]]
+)
+# I的风险概率分布
+I_cpd = TabularCPD(
+            variable='I',
+            variable_card=2,
+            values=[[0.8, 0.147],
+            [0.2, 0.853]],
+            evidence=['J'],
+            evidence_card=[2]
+)
+# L的风险概率分布
+L_cpd = TabularCPD(
+            variable='L',
+            variable_card=2,
+            values=[[0.778], [0.222]]
+)
+# M的风险概率分布
+M_cpd = TabularCPD(
+            variable='M',
+            variable_card=2,
+            values=[[0.778, 0.173],
+            [0.222, 0.827]],
+            evidence=['L'],
+            evidence_card=[2]
+)
+# P的风险概率分布
+P_cpd = TabularCPD(
+            variable='P',
+            variable_card=2,
+            values=[[0.782], [0.218]]
+)
+# N的风险概率分布
+N_cpd = TabularCPD(
+    variable='N',
+    variable_card=2,
+    values=[[0.774, 0.131,0.134, 0.037],
+
+    [0.226,0.869,0.866,0.963]],
+    evidence=['M', 'P'],
+    evidence_card=[2, 2]
+)
+# O的风险概率分布
+O_cpd = TabularCPD(
+    variable='O',
+    variable_card=2,
+    values=[[0.782, 0.134,0.137,0.039],
+
+    [0.218,0.866,0.863,0.961]],
+    evidence=['N','W'],
+    evidence_card=[2,2]
+)
+# Q的风险概率分布
+Q_cpd = TabularCPD(
+            variable='Q',
+            variable_card=2,
+            values=[[0.796], [0.204]]
+)
+# R的风险概率分布
+R_cpd = TabularCPD(
+            variable='R',
+            variable_card=2,
+            values=[[0.784, 0.160],
+            [0.216, 0.840]],
+            evidence=['Q'],
+            evidence_card=[2]
+)
+# S的风险概率分布
+S_cpd = TabularCPD(
+            variable='S',
+            variable_card=2,
+            values=[[0.766, 0.165],
+            [0.234, 0.835]],
+            evidence=['R'],
+            evidence_card=[2]
+)
+# W的风险概率分布
+W_cpd = TabularCPD(
+            variable='W',
+            variable_card=2,
+            values=[[0.778, 0.182],
+            [0.222, 0.818]],
+            evidence=['S'],
+            evidence_card=[2]
+)
+
+# 将各节点添加到模型中，构建贝叶斯网络
+FX_model.add_cpds(
+    A_cpd,
+    B_cpd,
+    C_cpd,
+    D_cpd,
+    E_cpd,
+    V_cpd,
+    G_cpd,
+    K_cpd,
+    H_cpd,
+    J_cpd,
+    I_cpd,
+    L_cpd,
+    M_cpd,
+    N_cpd,
+    P_cpd,
+    O_cpd,
+    Q_cpd,
+    R_cpd,
+    S_cpd,
+    W_cpd
+)
+# 导入pgmpy贝叶斯推断模块
+from pgmpy.inference import VariableElimination
+# 贝叶斯网络推断
+FX_infer = VariableElimination(FX_model)
+
+# 天赋较好且考试不难的情况下推断该学生获得推荐信质量的好坏
+prob_O = FX_infer.query(
+            variables=['O'],
+            evidence={'E': 1})
+print(prob_O)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
